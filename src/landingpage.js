@@ -1,117 +1,81 @@
-import { useState } from "react";
-import deerVideo from "./deer-bg.mp4";
+import React from "react";
+import { Link } from "react-router-dom";
 import logo from "./clubtrace-logo.png";
+import videoBg from "./deer-bg.mp4";
 
-export default function App() {
-  const [email, setEmail] = useState("");
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    try {
-      const response = await fetch("https://script.google.com/macros/s/AKfycbyHehXtbvG34UveCyn9SJZdQpkh_z-QvBddXrv0gk8vJliDi431BpYsKCwXrnwzeQBaOw/exec", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        body: new URLSearchParams({
-          email: email,
-        }),
-      });
-
-      if (response.ok) {
-        alert(`Thanks, ${email}! You're on the waitlist.`);
-        setEmail("");
-      } else {
-        alert("Something went wrong. Please try again later.");
-      }
-    } catch (err) {
-      console.error(err);
-      alert("There was an error. Please try again.");
-    }
-  };
-
+export default function LandingPage() {
   return (
-    <main className="min-h-screen bg-gray-900 text-white font-sans relative overflow-hidden">
-      {/* Background Video */}
-      <video
-        autoPlay
-        muted
-        loop
-        playsInline
-        className="absolute w-full h-full object-cover z-0"
-      >
-        <source src={deerVideo} type="video/mp4" />
-      </video>
-
-      {/* Overlay */}
-      <div className="absolute w-full h-full bg-black bg-opacity-50 z-10"></div>
-
-      {/* Header */}
-      <header className="sticky top-0 z-20 bg-black bg-opacity-70 backdrop-blur-md shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-          <img src={logo} alt="ClubTrace Logo" className="h-10 md:h-12" />
-          <nav className="space-x-6 text-sm md:text-base">
-            <a href="#why" className="hover:text-green-300">Why ClubTrace</a>
-            <a href="#features" className="hover:text-green-300">Features</a>
-            <a href="#signup" className="hover:text-green-300">Join Waitlist</a>
-          </nav>
+    <div className="min-h-screen font-sans text-gray-900">
+      {/* Sticky Navigation Header */}
+      <header className="sticky top-0 z-50 bg-white shadow-sm py-4 px-6 flex justify-between items-center">
+        <div className="flex items-center space-x-4">
+          <img src={logo} alt="ClubTrace Logo" className="h-10" />
+          <h1 className="text-xl font-bold">ClubTrace</h1>
         </div>
+        <nav className="space-x-6 text-sm font-medium">
+          <a href="#features" className="hover:text-green-700">Features</a>
+          <Link to="/polls" className="hover:text-green-700">Polls</Link>
+          <Link to="/features" className="hover:text-green-700">More</Link>
+        </nav>
       </header>
 
-      {/* Hero */}
-      <section className="z-10 relative text-center pt-40 pb-60 px-6">
-        <h1 className="text-5xl md:text-6xl font-extrabold drop-shadow-lg mb-6">
-          ClubTrace
-        </h1>
-        <p className="text-xl md:text-2xl max-w-3xl mx-auto font-medium drop-shadow-sm">
-          Map your land, streamline communication, and stay connected in the field.
-        </p>
+      {/* Hero Section with Video Background */}
+      <section className="relative w-full h-[90vh] overflow-hidden">
+        <video
+          src={videoBg}
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute w-full h-full object-cover z-[-1]"
+        ></video>
+        <div className="relative z-10 flex flex-col justify-center items-center h-full text-white bg-black bg-opacity-40 px-4 text-center">
+          <h2 className="text-4xl md:text-5xl font-extrabold mb-4 drop-shadow-md">
+            A smarter way to organize your hunting land, stands, and members — all in one place.
+          </h2>
+          <p className="text-lg md:text-xl mb-6 max-w-2xl">
+            ClubTrace helps you manage hunting reservations, real-time check-ins, local resources, and club communication seamlessly.
+          </p>
+          <a
+            href="#signup"
+            className="bg-green-700 hover:bg-green-800 text-white font-semibold px-6 py-3 rounded-full shadow-md transition"
+          >
+            Join the Waitlist
+          </a>
+        </div>
       </section>
 
-      {/* Features */}
-      <section id="why" className="z-10 relative py-24 px-6 bg-white text-gray-900">
-        <h2 className="text-4xl font-bold text-center mb-16">Why ClubTrace?</h2>
+      {/* Feature Section */}
+      <section id="features" className="py-24 px-6 bg-gray-50">
+        <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">Key Features</h2>
         <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-12">
-          <div className="bg-gray-50 p-8 rounded-xl shadow hover:shadow-lg transition">
-            <h3 className="text-xl font-bold mb-2">📍 Smart Mapping</h3>
-            <p>Tag stands, feeders, and zones. Check-in with GPS. Color-coded reservations.</p>
+          <div className="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition">
+            <h3 className="text-xl font-bold mb-2">📍 Smart Stand Mapping</h3>
+            <p>Reserve and tag stands, view GPS check-ins, and track who is where in real-time using mobile location services.</p>
           </div>
-          <div className="bg-gray-50 p-8 rounded-xl shadow hover:shadow-lg transition">
-            <h3 className="text-xl font-bold mb-2">💬 Built-in Chat</h3>
-            <p>Stay in sync with group messaging for hunts, workdays, and sightings.</p>
+          <div className="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition">
+            <h3 className="text-xl font-bold mb-2">💬 Real-Time Club Chat</h3>
+            <p>Communicate with members, share hunting reports, and coordinate meetups with built-in messaging.</p>
           </div>
-          <div className="bg-gray-50 p-8 rounded-xl shadow hover:shadow-lg transition">
-            <h3 className="text-xl font-bold mb-2">📓 Private Club Hub</h3>
-            <p>Admins get tools to track dues, manage members, and post club rules + waivers.</p>
+          <div className="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition">
+            <h3 className="text-xl font-bold mb-2">📓 Club Management Tools</h3>
+            <p>Upload club rules, log harvests, manage member access, and monitor dues — all from one dashboard.</p>
           </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section id="signup" className="z-10 relative py-24 px-6 text-center bg-green-100 text-gray-900">
-        <h2 className="text-3xl font-bold mb-4">Launching This Season</h2>
-        <p className="mb-8 text-lg">Be one of the first to modernize your hunting club.</p>
-        <form
-          onSubmit={handleSubmit}
-          className="flex flex-col md:flex-row gap-4 justify-center max-w-xl mx-auto"
-        >
-          <input
-            type="email"
-            required
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Your email"
-            className="px-4 py-3 rounded border border-gray-300 w-full"
-          />
-          <button
-            type="submit"
-            className="bg-green-800 text-white px-6 py-3 rounded hover:bg-green-900 transition"
-          >
-            Join Waitlist
-          </button>
-        </form>
+      {/* Signup Section */}
+      <section id="signup" className="py-24 px-6 bg-green-100 text-center">
+        <h2 className="text-3xl font-bold mb-4">Be Part of the First Season</h2>
+        <p className="mb-8 text-lg">Get early access and help shape the future of club hunting technology.</p>
+        <iframe
+          title="Signup Form"
+          src="https://script.google.com/macros/s/AKfycbyHehXtbvG34UveCyn9SJZdQpkh_z-QvBddXrv0gk8vJliDi431BpYsKCwXrnwzeQBaOw/exec"
+          width="100%"
+          height="300"
+          className="mx-auto border-none max-w-xl"
+        ></iframe>
       </section>
-    </main>
+    </div>
   );
 }

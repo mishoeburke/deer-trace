@@ -1,16 +1,19 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import "./index.css";
-import App from "./App";
-import FeaturesPage from "./FeaturesPage";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+// index.js
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import App from './App';
+import FeaturesPage from './featurespage';
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
+const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <Router>
-    <Routes>
-      <Route path="/" element={<App />} />
-      <Route path="/features" element={<FeaturesPage />} />
-    </Routes>
-  </Router>
+  <React.StrictMode>
+    <Router>
+      <Routes>
+        <Route path="/" element={<App />} />
+        <Route path="/features" element={<FeaturesPage />} />
+      </Routes>
+    </Router>
+  </React.StrictMode>
 );
